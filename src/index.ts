@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /* eslint-disable no-constant-condition */
 
 import { showMenu } from './cli/menu.js';
