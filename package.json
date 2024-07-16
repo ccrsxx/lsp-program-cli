@@ -1,6 +1,6 @@
 {
   "name": "lsp-program-cli",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "LSP CLI assignment",
   "bin": "./build/index.js",
   "main": "./build/index.js",
