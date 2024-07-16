@@ -4,6 +4,9 @@ import { inputNumbers } from './input.js';
 import { searchNumbers } from './search.js';
 import { showLogo, showLoadingSpinner, quitCli } from '../utils/helper.js';
 
+/**
+ * Show the main menu.
+ */
 export async function showMenu(): Promise<void> {
   await showLogo();
 
