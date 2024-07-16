@@ -1,9 +1,10 @@
 {
   "name": "lsp-program-cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "LSP CLI assignment",
-  "main": "./build/index.js",
   "bin": "./build/index.js",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "type": "module",
   "scripts": {
     "dev": "tsx watch ./src/index.ts",
@@ -30,14 +31,17 @@
     "type": "git",
     "url": "https://github.com/ccrsxx/lsp-program-cli"
   },
+  "files": [
+    "build"
+  ],
   "author": "ccrsxx",
   "license": "GPL-3.0-only",
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@eslint/js": "^9.6.0",
-    "@types/eslint__js": "^8.42.3",
     "@types/chalk-animation": "^1.6.3",
+    "@types/eslint__js": "^8.42.3",
     "@types/figlet": "^1.5.8",
     "@types/gradient-string": "^1.1.6",
     "@types/node": "^20.14.10",
@@ -54,7 +58,7 @@
     "@inquirer/prompts": "^5.1.2",
     "chalk": "^5.3.0",
     "figlet": "^1.7.0",
-    "nanospinner": "^1.1.0",
-    "gradient-string": "^2.0.2"
+    "gradient-string": "^2.0.2",
+    "nanospinner": "^1.1.0"
   }
 }
