@@ -1,8 +1,9 @@
 {
-  "name": "lsp-cli",
+  "name": "lsp-program-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "LSP CLI assignment",
   "main": "./build/index.js",
+  "bin": "./build/index.js",
   "type": "module",
   "scripts": {
     "dev": "tsx watch ./src/index.ts",
@@ -22,8 +23,12 @@
     "node": "20.15.0"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ccrsxx/lsp-cli"
+  },
+  "author": "ccrsxx",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
