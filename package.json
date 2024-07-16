@@ -22,7 +22,10 @@
   "engines": {
     "node": "20.15.0"
   },
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "typescript"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ccrsxx/lsp-cli"
