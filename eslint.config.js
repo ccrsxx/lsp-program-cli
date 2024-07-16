@@ -30,6 +30,7 @@ export default tsEslint.config(
       'no-unused-expressions': 'error',
       'no-constant-binary-expression': 'error',
       '@typescript-eslint/no-import-type-side-effects': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/consistent-type-exports': 'warn',
       '@typescript-eslint/consistent-type-imports': 'warn',
       '@typescript-eslint/no-unused-vars': [
