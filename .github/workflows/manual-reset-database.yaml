@@ -1,0 +1,28 @@
+name: 💀 Reset database
+
+on:
+  workflow_dispatch:
+    inputs:
+      database_name:
+        type: string
+        required: true
+        description: 'Database name to reset'
+
+jobs:
+  migration:
+    name: 🔑 Reset database
+    runs-on: ubuntu-latest
+
+    env:
+      DIRECT_URL: ${{ format('postgres://{0}:{1}@{2}:{3}/{4}?schema=public', secrets.DB_USERNAME, secrets.DB_PASSWORD, secrets.DB_HOST, secrets.DB_SESSION_PORT, inputs.database_name) }}
+      DATABASE_URL: ${{ format('postgres://{0}:{1}@{2}:{3}/{4}?schema=public&pgbouncer=true', secrets.DB_USERNAME, secrets.DB_PASSWORD, secrets.DB_HOST, secrets.DB_TRANSACTION_PORT, inputs.database_name) }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download deps
+        run: npm ci
+
+      - name: Reset database
+        run: npm run db:reset
