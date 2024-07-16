@@ -8,7 +8,7 @@ export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function pastelAsync(message: string): Promise<string> {
+export async function figletAsync(message: string): Promise<string> {
   return new Promise((resolve, reject) =>
     figlet(message, (err, data) => {
       if (err) reject(err);
@@ -21,7 +21,7 @@ export async function pastelAsync(message: string): Promise<string> {
 export async function showLogo(): Promise<void> {
   console.clear();
 
-  const figletString = await pastelAsync('LSP CLI!');
+  const figletString = await figletAsync('LSP CLI!');
 
   console.log(gradient.pastel.multiline(figletString));
 }
@@ -29,7 +29,7 @@ export async function showLogo(): Promise<void> {
 export async function quitCli(): Promise<void> {
   console.clear();
 
-  const figletString = await pastelAsync('Good Bye!');
+  const figletString = await figletAsync('Good Bye!');
 
   console.log(gradient.pastel.multiline(figletString));
 
