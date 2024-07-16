@@ -6,7 +6,7 @@ import { showMenu } from './cli/menu.js';
 import { quitCli } from './utils/helper.js';
 import './utils/event.js';
 
-export async function main(): Promise<void> {
+async function main(): Promise<void> {
   while (true) {
     try {
       await showMenu();
@@ -18,4 +18,4 @@ export async function main(): Promise<void> {
   await quitCli();
 }
 
-if (require.main === module) void main();
+void main();
