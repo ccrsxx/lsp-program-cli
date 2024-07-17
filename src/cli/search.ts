@@ -10,6 +10,7 @@ import { logExecutionResource } from '../utils/helper.js';
 
 export async function searchNumbers(): Promise<void> {
   let message: string | null = null;
+  let logExecutionCallback: (() => void) | null = null;
 
   while (true) {
     await showLogo();
@@ -26,7 +27,10 @@ export async function searchNumbers(): Promise<void> {
 
     console.log(chalk.blue('Press Escape to stop input\n'));
 
-    if (message) console.log(message, '\n');
+    if (message) {
+      console.log(message, '\n');
+      logExecutionCallback?.();
+    }
 
     const answerPrompt = number({
       message: 'Search number',
@@ -38,12 +42,12 @@ export async function searchNumbers(): Promise<void> {
     try {
       const parsedAnswer = (await answerPrompt) as number;
 
-      logExecutionResource(() => {
+      logExecutionCallback = logExecutionResource(() => {
         const isFound = state.numbers.includes(parsedAnswer);
 
         if (isFound) message = chalk.green(`Number ${parsedAnswer} is found!`);
         else message = chalk.red(`Number ${parsedAnswer} is not found!`);
-      });
+      }, true);
     } catch (err) {
       if (err instanceof CancelPromptError) break;
       if (err instanceof ExitPromptError) await quitCli();
