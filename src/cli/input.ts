@@ -4,7 +4,7 @@
 import chalk from 'chalk';
 import { state } from '../utils/state.js';
 import { number } from '@inquirer/prompts';
-import { showLogo, quitCli } from '../utils/helper.js';
+import { showLogo, quitCli } from '../utils/ui.js';
 import { CancelPromptError, ExitPromptError } from '@inquirer/core';
 
 export async function inputNumbers(): Promise<void> {
@@ -16,7 +16,7 @@ export async function inputNumbers(): Promise<void> {
     console.log(chalk.blue('Press Escape to stop input\n'));
 
     const answerPrompt = number({
-      message: 'Input Number',
+      message: 'Input number',
       required: true
     });
 

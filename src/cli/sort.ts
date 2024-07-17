@@ -2,17 +2,27 @@
 
 import chalk from 'chalk';
 import { state } from '../utils/state.js';
-import { confirm } from '@inquirer/prompts';
-import { showLogo } from '../utils/helper.js';
+import { backToMainMenu, showLogo } from '../utils/ui.js';
+import { logExecutionResource } from '../utils/helper.js';
 
 export async function sortNumbers(): Promise<void> {
   await showLogo();
 
-  console.log(chalk.magenta('Numbers:'), state.numbers.join(', '));
+  if (!state.numbers.length) {
+    console.log(chalk.red('No numbers to sort'), '\n');
 
-  state.numbers.sort((a, b) => a - b);
+    await backToMainMenu();
 
-  console.log(chalk.blue('Sorted Numbers:'), state.numbers.join(', '), '\n');
+    return;
+  }
 
-  await confirm({ message: 'Press Enter to continue' });
+  console.log(chalk.magenta('Numbers:'), state.numbers.join(', '), '\n');
+
+  logExecutionResource(() => {
+    const sortedNumbers = [...state.numbers].sort((a, b) => a - b);
+
+    console.log(chalk.blue('Sorted Numbers:'), sortedNumbers.join(', '), '\n');
+  });
+
+  await backToMainMenu();
 }

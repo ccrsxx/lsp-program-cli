@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 
 import figlet from 'figlet';
-import gradient from 'gradient-string';
-import { createSpinner } from 'nanospinner';
 
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -18,28 +16,22 @@ export async function figletAsync(message: string): Promise<string> {
   );
 }
 
-export async function showLogo(): Promise<void> {
-  console.clear();
-
-  const figletString = await figletAsync('LSP CLI!');
-
-  console.log(gradient.pastel.multiline(figletString));
+export function formatMemoryUsage(value: number): string {
+  return `${Math.round((value / 1024 / 1024) * 100) / 100} MB`;
 }
 
-export async function quitCli(): Promise<void> {
-  console.clear();
+export function logExecutionResource(callback: () => void): void {
+  const start = performance.now();
 
-  const figletString = await figletAsync('Good Bye!');
+  callback();
 
-  console.log(gradient.pastel.multiline(figletString));
+  const end = performance.now();
 
-  process.exit(0);
-}
+  const time = end - start;
 
-export async function showLoadingSpinner(): Promise<void> {
-  const spinner = createSpinner('Loading...').start();
+  const { heapUsed } = process.memoryUsage();
 
-  await sleep(500);
+  console.log(`Time execution: ${(time / 1000).toFixed(2)} Seconds`);
 
-  spinner.stop();
+  console.log(`Memory usage: ${formatMemoryUsage(heapUsed)}`, '\n');
 }

@@ -4,14 +4,23 @@
 import chalk from 'chalk';
 import { state } from '../utils/state.js';
 import { number } from '@inquirer/prompts';
-import { showLogo, quitCli } from '../utils/helper.js';
+import { showLogo, quitCli, backToMainMenu } from '../utils/ui.js';
 import { CancelPromptError, ExitPromptError } from '@inquirer/core';
+import { logExecutionResource } from '../utils/helper.js';
 
 export async function searchNumbers(): Promise<void> {
   let message: string | null = null;
 
   while (true) {
     await showLogo();
+
+    if (!state.numbers.length) {
+      console.log(chalk.red('No numbers to search'), '\n');
+
+      await backToMainMenu();
+
+      return;
+    }
 
     console.log(chalk.magenta('Numbers:'), state.numbers.join(', '), '\n');
 
@@ -20,7 +29,7 @@ export async function searchNumbers(): Promise<void> {
     if (message) console.log(message, '\n');
 
     const answerPrompt = number({
-      message: 'Search Number',
+      message: 'Search number',
       required: true
     });
 
@@ -29,10 +38,12 @@ export async function searchNumbers(): Promise<void> {
     try {
       const parsedAnswer = (await answerPrompt) as number;
 
-      const isFound = state.numbers.includes(parsedAnswer);
+      logExecutionResource(() => {
+        const isFound = state.numbers.includes(parsedAnswer);
 
-      if (isFound) message = chalk.green(`Number ${parsedAnswer} is found!`);
-      else message = chalk.red(`Number ${parsedAnswer} is not found!`);
+        if (isFound) message = chalk.green(`Number ${parsedAnswer} is found!`);
+        else message = chalk.red(`Number ${parsedAnswer} is not found!`);
+      });
     } catch (err) {
       if (err instanceof CancelPromptError) break;
       if (err instanceof ExitPromptError) await quitCli();

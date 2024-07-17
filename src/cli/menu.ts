@@ -4,7 +4,7 @@ import { rawlist } from '@inquirer/prompts';
 import { sortNumbers } from './sort.js';
 import { inputNumbers } from './input.js';
 import { searchNumbers } from './search.js';
-import { showLogo, showLoadingSpinner, quitCli } from '../utils/helper.js';
+import { showLogo, showLoadingSpinner, quitCli } from '../utils/ui.js';
 
 export async function showMenu(): Promise<void> {
   while (true) {
@@ -21,18 +21,18 @@ export async function showMenu(): Promise<void> {
 
     try {
       const answer = await rawlist<Menu>({
-        message: 'Choose Menu',
+        message: 'Choose menu',
         choices: [
           {
-            name: 'Input Numbers',
+            name: 'Input numbers',
             value: 'input_numbers'
           },
           {
-            name: 'Sort Numbers',
+            name: 'Sort numbers',
             value: 'sort_numbers'
           },
           {
-            name: 'Search Numbers',
+            name: 'Search numbers',
             value: 'search_numbers'
           },
           {
