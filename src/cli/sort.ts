@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import { state } from '../utils/state.js';
 import { backToMainMenu, showLogo } from '../utils/ui.js';
 import { logExecutionResource } from '../utils/helper.js';
+import { bubbleSort } from '../logic/sort.js';
 
 export async function sortNumbers(): Promise<void> {
   await showLogo();
@@ -19,7 +20,7 @@ export async function sortNumbers(): Promise<void> {
   console.log(chalk.magenta('Numbers:'), state.numbers.join(', '), '\n');
 
   logExecutionResource(() => {
-    const sortedNumbers = [...state.numbers].sort((a, b) => a - b);
+    const sortedNumbers = bubbleSort(state.numbers, 'asc');
 
     console.log(chalk.blue('Sorted Numbers:'), sortedNumbers.join(', '), '\n');
   });

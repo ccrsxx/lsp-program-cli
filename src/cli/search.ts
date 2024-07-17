@@ -7,6 +7,8 @@ import { number } from '@inquirer/prompts';
 import { showLogo, quitCli, backToMainMenu } from '../utils/ui.js';
 import { CancelPromptError, ExitPromptError } from '@inquirer/core';
 import { logExecutionResource } from '../utils/helper.js';
+import { bubbleSort } from '../logic/sort.js';
+import { binarySearch } from '../logic/search.js';
 
 export async function searchNumbers(): Promise<void> {
   let message: string | null = null;
@@ -43,7 +45,8 @@ export async function searchNumbers(): Promise<void> {
       const parsedAnswer = (await answerPrompt) as number;
 
       logExecutionCallback = logExecutionResource(() => {
-        const isFound = state.numbers.includes(parsedAnswer);
+        const sortedArray = bubbleSort(state.numbers, 'asc');
+        const isFound = binarySearch(sortedArray, parsedAnswer) > -1;
 
         if (isFound) message = chalk.green(`Number ${parsedAnswer} is found!`);
         else message = chalk.red(`Number ${parsedAnswer} is not found!`);
