@@ -1,6 +1,6 @@
 {
   "name": "lsp-program-cli",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "LSP CLI assignment",
   "bin": "./build/index.js",
   "main": "./build/index.js",
@@ -15,8 +15,7 @@
     "lint": "eslint --max-warnings 0 .",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
-    "prepare": "husky install",
-    "publish": "npm run build && npm publish"
+    "prepare": "husky install"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
