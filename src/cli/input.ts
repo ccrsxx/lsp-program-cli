@@ -8,29 +8,52 @@ import { showLogo, quitCli } from '../utils/ui.js';
 import { CancelPromptError, ExitPromptError } from '@inquirer/core';
 
 export async function inputNumbers(): Promise<void> {
-  while (true) {
-    await showLogo();
+  await showLogo();
 
-    console.log(chalk.magenta('Numbers:'), state.numbers.join(', '), '\n');
+  const numberOfInputsPrompt = number({
+    message: 'How many numbers do you want to input?',
+    required: true,
+    validate: (value: number | undefined) => {
+      const isNotValid = typeof value === 'number' && value < 1;
 
-    console.log(chalk.blue('Press Escape to stop input\n'));
+      if (isNotValid) return 'Number of inputs must be greater than 0';
 
-    const answerPrompt = number({
-      message: 'Input number',
-      required: true
-    });
-
-    state.cancelablePrompt = answerPrompt;
-
-    try {
-      const parsedAnswer = (await answerPrompt) as number;
-
-      state.numbers.push(parsedAnswer);
-    } catch (err) {
-      if (err instanceof CancelPromptError) break;
-      if (err instanceof ExitPromptError) await quitCli();
-
-      console.log(chalk.red('Error has occurred!'));
+      return true;
     }
+  });
+
+  state.cancelablePrompt = numberOfInputsPrompt;
+
+  let inputArrays: number[] = [];
+
+  try {
+    const numberOfInputs = (await numberOfInputsPrompt) as number;
+
+    console.log();
+
+    for (let i = 0; i < numberOfInputs; i++) {
+      const inputPrompt = number({
+        message: `Input number ${i + 1}`,
+        required: true,
+        theme: {
+          style: {
+            message: (text: string) => `${text} ${chalk.blue('>>')}`
+          }
+        }
+      });
+
+      state.cancelablePrompt = inputPrompt;
+
+      const parsedInput = (await inputPrompt) as number;
+
+      inputArrays.push(parsedInput);
+    }
+  } catch (err) {
+    if (err instanceof CancelPromptError) inputArrays = [];
+    if (err instanceof ExitPromptError) await quitCli();
+
+    console.log(chalk.red('Error has occurred!'));
   }
+
+  if (inputArrays.length) state.numbers = inputArrays;
 }

@@ -36,7 +36,12 @@ export async function showLoadingSpinner(): Promise<void> {
 
 export async function backToMainMenu(): Promise<boolean> {
   const answerPrompt = confirm({
-    message: 'Press Escape or Enter to go back to main menu'
+    message: 'Press Escape or Enter to go back to main menu',
+    theme: {
+      style: {
+        defaultAnswer: () => ''
+      }
+    }
   });
 
   state.cancelablePrompt = answerPrompt;
