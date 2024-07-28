@@ -1,5 +1,15 @@
 # LSP Program CLI
 
+## Tech Stack
+
+- Node.js
+- TypeScript
+- Chalk
+- Inquirer
+- Figlet
+- Gradient String
+- Nanospinner
+
 ## Production
 
 You can run the cli right away by using npx.
